@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import CheckBox from '@react-native-community/checkbox';
-import Icon from 'react-native-vector-icons/Fontisto';
+
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 
 export const LogoBox = styled.View`
@@ -75,12 +75,4 @@ export const LoginGoogle = styled(GoogleSigninButton).attrs({
 })`
   align-self: center;
   margin-top: 12px;
-`;
-
-export const LeftArrow = styled(Icon).attrs({
-  name: 'arrow-left',
-  size: 15,
-  color: 'white',
-})`
-  margin: 20px;
 `;

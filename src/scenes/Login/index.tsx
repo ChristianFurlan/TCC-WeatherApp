@@ -13,7 +13,6 @@ import {
   RegisterButton,
   LoginGoogle,
   TextCenter,
-  LeftArrow,
 } from './styles';
 import Logo from '../../assets/svg/Logo';
 import Button from '../../components/Button';
@@ -33,8 +32,7 @@ const Login: React.FC<Props> = ({register}) => {
   const navigation = useNavigation();
 
   return (
-    <SceneWrapper>
-      {register && <LeftArrow onPress={() => navigation.navigate('Login')} />}
+    <SceneWrapper backButton={register}>
       <LogoBox>
         <Logo />
         <LogoText>Weather</LogoText>
@@ -54,7 +52,7 @@ const Login: React.FC<Props> = ({register}) => {
           <InputLabel>Password</InputLabel>
           <InputText value={password} onChangeText={e => setPassword(e)} />
         </InputBox>
-        <Button>Log in</Button>
+        <Button onPress={() => navigation.navigate('Home')}>Log in</Button>
         <Row>
           <CheckboxContainer onPress={toggleRemember}>
             <>
