@@ -19,6 +19,7 @@ const Home: React.FC = () => {
   const [climateData, setClimateData] = useState<IOpenWeatherModel | null>(
     null,
   );
+  const [date, setDate] = useState('');
 
   const getLocaleAndClimate = useCallback(() => {
     geolocation.getCurrentPosition(info => {
@@ -34,32 +35,27 @@ const Home: React.FC = () => {
 
   const getHour = () => {
     currentDate = new Date();
-    formatedDate = formatDate(currentDate, 'iiii, dd  MMMM');
+    formatedDate = formatDate(currentDate, 'iii. PPP');
+    // let splitDate = formatedDate.split(' ');
+    // formatedDate = splitDate.map(firstLetterToUpperCase).join(' ');
+
+    setDate(formatedDate);
   };
 
   const findCoordinates = async ({lat, lon}: ICoord) => {
     try {
       setLoading(true);
       const response = await callApi<IOpenWeatherModel>(
-        '/onecall',
+        '/weather', //onecall
         HttpMethod.get,
         {
           lat,
           lon,
           units: 'metric',
-          lang: 'pt-br',
-          exclude: 'minutely, hourly, alerts',
+          lang: 'pt_br',
+          // exclude: 'minutely, hourly, alerts',
         },
       );
-
-      console.log(response.data);
-
-      console.log(formatDate(currentDate, 'iiii'));
-
-      console.log('dt:', response.data.current.dt);
-      const testDt = new Date(response.data.current.dt * 1000).toDateString();
-
-      console.log(testDt);
 
       setClimateData(response.data);
     } catch (e) {
@@ -77,7 +73,7 @@ const Home: React.FC = () => {
     <SceneWrapper logo dots>
       <Container>
         <CardsBox horizontal>
-          <Card />
+          {climateData && <Card date={date} climateData={climateData} />}
         </CardsBox>
       </Container>
       <WeekClimate />

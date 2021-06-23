@@ -1,4 +1,5 @@
 import React from 'react';
+import {IOpenWeatherModel} from '../../utils/types/OpenWeatherTypes';
 import {
   Container,
   Title,
@@ -14,20 +15,27 @@ import {
 
 const img = require('../../assets/images/beach.png');
 
-const Card: React.FC = () => {
+type Props = {
+  climateData: IOpenWeatherModel;
+  date: string;
+};
+
+const Card: React.FC<Props> = ({climateData, date}) => {
   return (
     <CardBox>
       <Container source={img}>
-        <Title>São Paulo</Title>
-        <Text>Seg. 31 de maio. 2021</Text>
-        <ClimateText>26º</ClimateText>
+        <Title>{climateData.name}</Title>
+        <Text>{date}</Text>
+        <ClimateText>{Math.trunc(climateData.main.temp)}º</ClimateText>
 
         <FooterBox>
           <Row>
-            <Text>Min: 26º</Text>
-            <Text>Max: 26º</Text>
+            <Text>Min: {Math.trunc(climateData.main.temp_min)}º</Text>
+            <Text>Max: {Math.trunc(climateData.main.temp_max)}º</Text>
           </Row>
-          <Text>Sensação Térmica: 26º</Text>
+          <Text>
+            Sensação Térmica: {Math.trunc(climateData.main.feels_like)}º
+          </Text>
         </FooterBox>
       </Container>
       <ButtonBox>

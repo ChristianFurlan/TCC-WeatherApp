@@ -7,3 +7,7 @@ export const formatDate = (date: Date, formatStr: string) => {
     locale: pt,
   });
 };
+
+export const firstLetterToUpperCase = (text: string) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
