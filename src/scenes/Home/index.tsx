@@ -4,12 +4,18 @@ import Card from '../../components/Card';
 import {CardsBox, Container} from './styles';
 import WeekClimate from './components/WeekClimate';
 import geolocation from '@react-native-community/geolocation';
-import {ICoord, IOpenWeatherModel} from '../../utils/types/OpenWeatherTypes';
+import {
+  ICoord,
+  IOpenWeatherModel,
+  IOpenWeatherWeekModel,
+} from '../../utils/types/OpenWeatherTypes';
 import callApi from '../../services/api';
 import {HttpMethod} from '../../utils/Enums';
 import {formatDate} from '../../utils/helpersFunctions';
 import {useEffect} from 'react';
 import {useCallback} from 'react';
+import {useStores} from '../../stores';
+import {observer} from 'mobx-react-lite';
 
 const Home: React.FC = () => {
   let currentDate: Date;
@@ -19,6 +25,11 @@ const Home: React.FC = () => {
   const [climateData, setClimateData] = useState<IOpenWeatherModel | null>(
     null,
   );
+
+  const [climateWeekData, setClimateWeekData] = useState<
+    IOpenWeatherWeekModel[] | null
+  >(null);
+  const {climate} = useStores();
   const [date, setDate] = useState('');
 
   const getLocaleAndClimate = useCallback(() => {
@@ -29,6 +40,7 @@ const Home: React.FC = () => {
       };
 
       findCoordinates(coordsObj);
+      getClimateWeekData(coordsObj);
       getHour();
     });
   }, []);
@@ -45,19 +57,18 @@ const Home: React.FC = () => {
   const findCoordinates = async ({lat, lon}: ICoord) => {
     try {
       setLoading(true);
-      const response = await callApi<IOpenWeatherModel>(
-        '/weather', //onecall
-        HttpMethod.get,
-        {
-          lat,
-          lon,
-          units: 'metric',
-          lang: 'pt_br',
-          // exclude: 'minutely, hourly, alerts',
-        },
-      );
+      await climate.fetchCurrentClimate({lat, lon});
+    } catch (e) {
+      throw new Error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      setClimateData(response.data);
+  const getClimateWeekData = async ({lat, lon}: ICoord) => {
+    try {
+      setLoading(true);
+      await climate.fetchWeekClimate({lat, lon});
     } catch (e) {
       throw new Error(e);
     } finally {
@@ -73,12 +84,16 @@ const Home: React.FC = () => {
     <SceneWrapper logo dots>
       <Container>
         <CardsBox horizontal>
-          {climateData && <Card date={date} climateData={climateData} />}
+          <Card
+            date={date}
+            climateData={climate.currentClimate}
+            loading={loading}
+          />
         </CardsBox>
       </Container>
-      <WeekClimate />
+      <WeekClimate climateWeekData={climate.weekClimate} />
     </SceneWrapper>
   );
 };
 
-export default Home;
+export default observer(Home);

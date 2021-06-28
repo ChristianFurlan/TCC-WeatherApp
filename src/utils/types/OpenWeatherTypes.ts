@@ -13,6 +13,19 @@ export interface IOpenWeatherModel {
   cod: number;
 }
 
+export interface IOpenWeatherWeekModel {
+  dt: number;
+  temp: {
+    day: number;
+    eve: number;
+    max: number;
+    min: number;
+    morn: number;
+    night: number;
+  };
+  weather: IWeather[];
+}
+
 export interface IClouds {
   all: number;
 }

@@ -8,6 +8,7 @@ export const Container = styled.View`
   padding: 15px;
   margin: 0px 20px;
   margin-top: 20px;
+  justify-content: space-around;
 `;
 
 const BaseText = styled.Text`
@@ -19,6 +20,7 @@ export const Row = styled.View`
   display: flex;
   flex: 1;
   flex-direction: row;
+  justify-content: space-around;
 `;
 
 export const WeekDay = styled(BaseText)`
@@ -31,5 +33,10 @@ export const Temp = styled(BaseText)`
 
 export const WeekItem = styled.View`
   align-items: center;
-  margin: 0 5px;
+`;
+
+export const ClimateIcon = styled.ImageBackground`
+  width: 30;
+  height: 32;
+  margin-right: 5px;
 `;
