@@ -4,13 +4,7 @@ import Card from '../../components/Card';
 import {CardsBox, Container} from './styles';
 import WeekClimate from './components/WeekClimate';
 import geolocation from '@react-native-community/geolocation';
-import {
-  ICoord,
-  IOpenWeatherModel,
-  IOpenWeatherWeekModel,
-} from '../../utils/types/OpenWeatherTypes';
-import callApi from '../../services/api';
-import {HttpMethod} from '../../utils/Enums';
+import {ICoord} from '../../utils/types/OpenWeatherTypes';
 import {formatDate} from '../../utils/helpersFunctions';
 import {useEffect} from 'react';
 import {useCallback} from 'react';
@@ -22,13 +16,7 @@ const Home: React.FC = () => {
   let formatedDate: string;
 
   const [loading, setLoading] = useState(false);
-  const [climateData, setClimateData] = useState<IOpenWeatherModel | null>(
-    null,
-  );
 
-  const [climateWeekData, setClimateWeekData] = useState<
-    IOpenWeatherWeekModel[] | null
-  >(null);
   const {climate} = useStores();
   const [date, setDate] = useState('');
 
@@ -38,7 +26,7 @@ const Home: React.FC = () => {
         lat: info.coords.latitude,
         lon: info.coords.longitude,
       };
-
+      console.log('pegando cords', coordsObj);
       findCoordinates(coordsObj);
       getClimateWeekData(coordsObj);
       getHour();
@@ -48,8 +36,6 @@ const Home: React.FC = () => {
   const getHour = () => {
     currentDate = new Date();
     formatedDate = formatDate(currentDate, 'iii. PPP');
-    // let splitDate = formatedDate.split(' ');
-    // formatedDate = splitDate.map(firstLetterToUpperCase).join(' ');
 
     setDate(formatedDate);
   };
