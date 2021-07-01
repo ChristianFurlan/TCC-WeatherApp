@@ -86,6 +86,7 @@
 		13B07FAE1A68108700A75B9A /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				CE8AF83D268E38CE00728933 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -114,7 +115,6 @@
 				A511EB21C3E15DEADFB2338F /* Pods-WeatherApp-WeatherAppTests.debug.xcconfig */,
 				031179B530F19BAE2E36D8BA /* Pods-WeatherApp-WeatherAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -147,6 +147,13 @@
 				00E356EE1AD99517003FC87E /* WeatherAppTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CE8AF83D268E38CE00728933 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
