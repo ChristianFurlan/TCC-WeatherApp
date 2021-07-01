@@ -28,7 +28,7 @@ export const FooterBox = styled.View`
   display: flex;
   flex: 1;
   justify-content: flex-end;
-  width: 210px;
+  width: 76%;
   margin-bottom: 35px;
 `;
 
