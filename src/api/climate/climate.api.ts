@@ -2,7 +2,7 @@ import {
   ICoord,
   IOpenWeatherWeekModel,
 } from './../../utils/types/OpenWeatherTypes';
-import callApi from '../../services/api';
+import callApi from './api';
 import {HttpMethod} from '../../utils/Enums';
 import {IOpenWeatherModel} from '../../utils/types/OpenWeatherTypes';
 
